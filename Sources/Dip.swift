@@ -387,10 +387,11 @@ extension DependencyContainer {
     }
   }
 
-  public func resetWeakSingletons() {
+  public func resetWeakSingleton(_ definition: Definition<T, U>, tag: DependencyTagConvertible? = nil) {
+    let key = DefinitionKey(type: T.self, typeOfArguments: U.self, tag: tag?.dependencyTag)
     threadSafe {
-      resolvedInstances.weakSingletons.removeAll()
-      resolvedInstances.sharedWeakSingletons.removeAll()
+      resolvedInstances.weakSingletons[key] = nil
+      resolvedInstances.sharedWeakSingletons[key] = nil
     }
   }
 }
