@@ -387,6 +387,12 @@ extension DependencyContainer {
     }
   }
 
+  public func resetWeakSingletons() {
+    threadSafe {
+      resolvedInstances.weakSingletons.removeAll()
+      resolvedInstances.sharedWeakSingletons.removeAll()
+    }
+  }
 }
 
 // MARK: - Validation
